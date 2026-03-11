@@ -18,7 +18,7 @@ stages {
                 }
          stage('Docker-Login') {
            steps {
-              withCredentials([usernamePassword(credentialsId: 'dockercreds', passwordVariable: 'dockerpassword', usernameVariable: 'dockerlogin')]) {
+              withCredentials([usernamePassword(credentialsId: 'docker cred', passwordVariable: 'dockerpassword', usernameVariable: 'dockerlogin')]) {
                sh 'docker login -u ${dockerlogin} -p ${dockerpassword}'
                // withCredentials([string(credentialsId: 'docker', variable: 'dockervariable')]) {                   
                         }
@@ -32,7 +32,7 @@ stages {
       stage('Config & Deployment') {
             steps {
                 
-                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'awslogin', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     dir('terraform-files') {
                     sh 'sudo chmod 600 sir.pem'
                     sh 'terraform init'
